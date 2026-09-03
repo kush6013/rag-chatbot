@@ -11,4 +11,4 @@ httpx==0.28.1
 starlette==1.6.0
 # Optional but lightweight utilities
 python-multipart==0.0.32
-# If you need any additional packages, add them below.
+openai==1.3.0
