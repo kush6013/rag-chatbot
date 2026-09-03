@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!question) return;
     showMessage('⏳ thinking...');
     try {
-      const BACKEND_URL = "https://rag-backend-<your-id>.onrender.com";
+      const BACKEND_URL = "https://rag-chatbot-669n.onrender.com";
       const resp = await fetch(`${BACKEND_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
