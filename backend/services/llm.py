@@ -77,6 +77,7 @@ def get_model_candidates(model_name: str | None) -> list[str]:
 
 
 def generate_response(message: str, model_name: str | None = None) -> str:
+    client = _get_client()
     last_error = None
 
     for model in get_model_candidates(model_name):
