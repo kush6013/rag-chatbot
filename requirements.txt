@@ -1,6 +1,4 @@
 --extra-index-url https://download.pytorch.org/whl/cpu
-torch
-sentence-transformers==6.0.0
 fastapi
 uvicorn[standard]
 python-multipart
@@ -9,5 +7,6 @@ openai
 chromadb
 pymupdf
 python-docx
+sentence-transformers[accelerate]==6.0.0
 requests
 scikit-learn
