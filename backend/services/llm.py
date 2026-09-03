@@ -32,12 +32,11 @@ client = OpenAI(
 )
 
 FREE_MODELS = {
+    "openrouter": "openrouter/free",
     "nemotron": "nvidia/nemotron-3.5-lightning:free",
-    "lightning": "nvidia/nemotron-3.5-lightning:free",
-    "liquid": "liquid/lfm-2.5-2.6b:free",
     "gemma": "google/gemma-4-26b-a4b-it:free",
-    "gemma-4": "google/gemma-4-31b-it:free",
     "dots": "dots-studio/dots-3-note-preview:free",
+    "liquid": "liquid/lfm-2.5-2.6b:free",
 }
 
 
@@ -48,7 +47,7 @@ def _normalize_model_name(model_name: str | None) -> str:
 def _resolve_model(model_name: str | None) -> str:
     normalized = _normalize_model_name(model_name)
     if not normalized:
-        return FREE_MODELS["nemotron"]
+        return FREE_MODELS["openrouter"]
 
     if ":" in normalized or "/" in normalized:
         return model_name.strip()
@@ -60,7 +59,7 @@ def _resolve_model(model_name: str | None) -> str:
         if normalized == _normalize_model_name(model):
             return model
 
-    return FREE_MODELS.get(normalized, FREE_MODELS["nemotron"])
+    return FREE_MODELS.get(normalized, FREE_MODELS["openrouter"])
 
 
 def get_model_candidates(model_name: str | None) -> list[str]:
@@ -105,6 +104,7 @@ def generate_response(message: str, model_name: str | None = None) -> str:
                 ],
                 max_tokens=1000,
                 temperature=0.2,
+                timeout=6.0,
             )
 
             if not response.choices:
@@ -143,6 +143,12 @@ def generate_response(message: str, model_name: str | None = None) -> str:
                 or "no endpoints found" in error_text
                 or "endpoint" in error_text and "not found" in error_text
                 or "model not found" in error_text
+                or "timeout" in error_text
+                or "timed out" in error_text
+                or "connection" in error_text
+                or "504" in error_text
+                or "503" in error_text
+                or "502" in error_text
             ):
                 continue
 

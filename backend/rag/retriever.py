@@ -13,7 +13,7 @@ from backend.rag.embeddings import generate_embeddings
 # and some policy questions are phrased differently from the exact text
 # used in the document.
 RELEVANCE_THRESHOLD = 1.40
-RELEVANCE_SOFT_THRESHOLD = 2.00
+RELEVANCE_SOFT_THRESHOLD = 2.50
 
 
 def _stem_word(word: str) -> str:
