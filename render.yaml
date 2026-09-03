@@ -1,0 +1,11 @@
+services:
+  - type: static
+    name: rag-frontend
+    repo: .
+    branch: main
+    staticPublishPath: frontend
+    buildCommand: ""
+    # Optional: you can add a custom domain
+    # envVars:
+    #   - key: ALLOWED_ORIGINS
+    #     value: "https://your-frontend.onrender.com"
