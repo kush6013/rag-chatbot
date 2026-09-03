@@ -1,11 +1,28 @@
 services:
+  # ── Backend Web Service (FastAPI) ──────────────────────────────────────────
+  - type: web
+    name: rag-chatbot
+    runtime: python
+    branch: main
+    rootDir: .
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: OPENROUTER_API_KEY
+        sync: false          # Set this manually in the Render dashboard
+      - key: OPENROUTER_MODEL
+        value: openrouter/free
+      - key: OPENROUTER_FALLBACK_MODEL
+        value: nvidia/nemotron-3.5-lightning:free
+      - key: FRONTEND_URL
+        value: https://rag-frontend-q1zq.onrender.com
+      - key: ALLOWED_ORIGINS
+        value: http://127.0.0.1:5500,http://localhost:5500,https://rag-frontend-q1zq.onrender.com
+
+  # ── Frontend Static Site ───────────────────────────────────────────────────
   - type: static
     name: rag-frontend
-    repo: .
     branch: main
-    staticPublishPath: frontend
+    rootDir: frontend
     buildCommand: ""
-    # Optional: you can add a custom domain
-    # envVars:
-    #   - key: ALLOWED_ORIGINS
-    #     value: "https://your-frontend.onrender.com"
+    staticPublishPath: .
