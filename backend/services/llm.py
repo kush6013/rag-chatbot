@@ -9,27 +9,22 @@ from backend.config import (
 )
 
 
-if not OPENROUTER_API_KEY:
-    raise RuntimeError(
-        "OPENROUTER_API_KEY is not configured."
+def _get_client() -> OpenAI:
+    api_key = os.getenv("OPENROUTER_API_KEY", OPENROUTER_API_KEY)
+    if (
+        not api_key
+        or api_key.strip().upper().startswith("REPLACE")
+        or "your_openrouter" in api_key.lower()
+        or "your_key" in api_key.lower()
+    ):
+        raise RuntimeError(
+            "OPENROUTER_API_KEY is not configured or is invalid. "
+            "Please set OPENROUTER_API_KEY in your environment or Render Environment Variables."
+        )
+    return OpenAI(
+        api_key=api_key,
+        base_url="https://openrouter.ai/api/v1",
     )
-
-# Helpful guard: detect the example/placeholder value in .env
-if (
-    OPENROUTER_API_KEY.strip().upper().startswith("REPLACE")
-    or "your_openrouter" in OPENROUTER_API_KEY.lower()
-    or "your_key" in OPENROUTER_API_KEY.lower()
-):
-    raise RuntimeError(
-        "OPENROUTER_API_KEY appears to be a placeholder. "
-        "Please set a valid OpenRouter API key in your environment or .env file."
-    )
-
-
-client = OpenAI(
-    api_key=OPENROUTER_API_KEY,
-    base_url="https://openrouter.ai/api/v1",
-)
 
 FREE_MODELS = {
     "openrouter": "openrouter/free",
