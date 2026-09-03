@@ -11,5 +11,5 @@ APP_HOST = os.getenv("APP_HOST", "0.0.0.0")
 APP_PORT = int(os.getenv("APP_PORT", "8000"))
 ALLOWED_ORIGINS = os.getenv(
     "ALLOWED_ORIGINS",
-    "http://127.0.0.1:5500,http://localhost:5500,http://0.0.0.0:5500",
+    "http://127.0.0.1:5500,http://localhost:5500,http://0.0.0.0:5500,https://rag-frontend-q1zq.onrender.com",
 ).split(",")
