@@ -46,6 +46,16 @@ Build and run:
 Or with docker-compose:
   docker-compose up --build
 
+## Deploy on Render
+
+1. Push this repository to GitHub.
+2. In Render, select **New > Blueprint** and connect the repository.
+3. Render reads `render.yaml` and creates the FastAPI web service and static frontend.
+4. In the backend service's environment variables, set `OPENROUTER_API_KEY` to a valid key.
+5. After the first deploy, open the frontend URL and send a test question. The backend health endpoint is available at `/health`.
+
+The configured frontend URL and API URL use the existing Render service URLs. If you create services with different URLs, update `frontend/app.js`, `FRONTEND_URL`, and `ALLOWED_ORIGINS` to use the new frontend origin.
+
 ## Free model guidance
 
 This project uses free OpenRouter models by default:

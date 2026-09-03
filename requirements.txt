@@ -12,4 +12,5 @@ starlette==1.6.0
 # Optional but lightweight utilities
 python-multipart==0.0.32
 python-docx==1.2.0
+PyMuPDF==1.27.1
 openai==1.3.0
